@@ -1,0 +1,18 @@
+export const classInfo = [
+  { key: 1, index: '第一课', content: '电子世界' },
+  { key: 2, index: '第二课', content: '璀璨的宇宙' },
+  { key: 3, index: '第三课', content: '以弱控强' },
+  { key: 4, index: '第四课', content: '流水灯' },
+  { key: 5, index: '第五课', content: '电子音乐播放器' },
+  { key: 6, index: '第六课', content: '计时器' },
+  { key: 7, index: '第七课', content: '字的显示' },
+  { key: 8, index: '第八课', content: '电子寄存' },
+  { key: 9, index: '第九课', content: '遥控器' },
+  { key: 10, index: '第十课', content: 'HELLO WORLD' },
+  { key: 11, index: '第十一课', content: '教师温度计' },
+  { key: 12, index: '第十二课', content: '电子钟' },
+  { key: 13, index: '第十三课', content: '电子称' },
+  { key: 14, index: '第十四课', content: '倒车雷达' },
+  { key: 15, index: '第十五课', content: '显示器' },
+  { key: 16, index: '第十六课', content: '蓝牙通讯器' },
+];
