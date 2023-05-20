@@ -77,13 +77,31 @@ export default function Home() {
         <h3 className='text-2xl mt-4 mb-5'>课堂及作品展示</h3>
         <div className='grid grid-cols-3 gap-4'>
           <div>
-            <img src='/class-1.jpg' alt='课堂展示' />
+            <Image
+              src='/class-1.jpg'
+              alt='课堂展示'
+              width={900}
+              height={600}
+              priority
+            />
           </div>
           <div>
-            <img src='/class-2.jpg' alt='课堂展示' />
+            <Image
+              src='/class-2.jpg'
+              alt='课堂展示'
+              width={900}
+              height={600}
+              priority
+            />
           </div>
           <div>
-            <img src='/class-3.jpg' alt='课堂展示' />
+            <Image
+              src='/class-3.jpg'
+              alt='课堂展示'
+              width={900}
+              height={600}
+              priority
+            />
           </div>
           <div>
             <Image
@@ -141,6 +159,7 @@ export default function Home() {
               label='微信号'
               name='wechatId'
               rules={[{ required: true, message: '请输入您的微信号！' }]}
+              className='mb-3'
             >
               <Input />
             </Form.Item>
