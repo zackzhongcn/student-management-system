@@ -2,13 +2,9 @@
 
 import React, { useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { Typography, Divider, Card, Table, Form, Input, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { classInfo } from '@/utils/constants';
-import Router from 'next/router';
-import prisma from '@/lib/prisma';
 import LottleDivider from '@/components/LottleDivider';
-
-const { Title } = Typography;
 
 export default function Home() {
   const columns = [
@@ -35,7 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     getSutdents();
-  }, []);
+  }, [getSutdents]);
 
   const onFinish = async (values: any) => {
     console.log(values);
@@ -70,8 +66,8 @@ export default function Home() {
         <h3 className='text-2xl mt-4 mb-5'>课程内容</h3>
         <div className='flex justify-center'>
           <ul className='list-inside list-disc text-left'>
-            {classInfo.map((info) => (
-              <li>
+            {classInfo.map((info, i) => (
+              <li key={i}>
                 {info.index}:&nbsp;&nbsp;&nbsp;{info.content}
               </li>
             ))}
