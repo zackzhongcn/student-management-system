@@ -6,8 +6,19 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // GET /api/students
 // Required fields in body: name, phone, wechatId
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const apiKey = request.headers.get('API-Key');
+    if (apiKey !== process.env.NEXT_PUBLIC_API_ROUTE_KEY) {
+      const error_response = {
+        status: 'fail',
+        message: 'You are not authorized to call this API.',
+      };
+      return new NextResponse(JSON.stringify(error_response), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
     const students = await prisma.student.findMany();
     console.log('fee:', students);
 
@@ -47,6 +58,17 @@ export async function GET() {
 // Required fields in body: name, phone, wechatId
 export async function POST(request: Request) {
   try {
+    const apiKey = request.headers.get('API-Key');
+    if (apiKey !== process.env.API_ROUTE_KEY) {
+      const error_response = {
+        status: 'fail',
+        message: 'You are not authorized to call this API.',
+      };
+      return new NextResponse(JSON.stringify(error_response), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
     const json = await request.json();
     console.log('json: ', json);
     const { name, phone, wechatId } = json;

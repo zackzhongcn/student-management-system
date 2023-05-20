@@ -3,47 +3,43 @@
 import React, { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { Form, Input, Button } from 'antd';
-import { classInfo } from '@/utils/constants';
+import { classInfo, imageUrls, lottleDescription } from '@/utils/constants';
 import LottleDivider from '@/components/LottleDivider';
+import LottleDescription from '@/components/LottleInfoSection';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 export default function Home() {
-  const columns = [
-    {
-      title: '课次',
-      dataIndex: 'index',
-      key: 'index',
-    },
-    {
-      title: '内容',
-      dataIndex: 'content',
-      key: 'content',
-    },
-  ];
-
   const getSutdents = useCallback(async () => {
-    const result = await fetch('/api/students', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const stu = await result.text();
-    console.log('stu: ', result.body, stu);
+    try {
+      const baseUrl = '/api/students';
+      const students = await axios.get(baseUrl, {
+        headers: { 'Api-Key': process.env.NEXT_PUBLIC_API_ROUTE_KEY },
+      });
+      console.log('students: ', students);
+    } catch (error: any) {
+      // console.log('errror: ', error);
+      // toast.error('Failed to get students records.');
+    }
   }, []);
 
   useEffect(() => {
+    toast.success('test test test!');
     getSutdents();
   }, [getSutdents]);
 
   const onFinish = async (values: any) => {
     console.log(values);
     try {
-      const result = await fetch('/api/students', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+      const baseUrl = '/api/students';
+      const result = await axios.post(baseUrl, JSON.stringify(values), {
+        headers: { 'Api-Key': process.env.NEXT_PUBLIC_API_ROUTE_KEY },
       });
       console.log('result: ', result);
+      toast.success('登记信息成功！');
     } catch (error: any) {
       console.error(error);
+      toast.error('登记信息失败，请再次尝试或联系工作人员。');
     }
   };
 
@@ -53,16 +49,15 @@ export default function Home() {
         <h1 className='text-5xl pt-4'>乐涂科创</h1>
         <h2 className='text-4xl'>2023年科技类白名单赛事集训课程</h2>
         <LottleDivider />
-        <h3 className='text-2xl mt-4 mb-5'>机构介绍</h3>
-        <div className='mb-4'>
-          乐涂科创，广州本土专业的打科技类竞赛机构。致力于让孩子以最高的效率解决JL问题，并且在比赛备赛过程体会到科技编程知识的奥妙。带领孩子以科技的视角去“发现问题，解决问题”
-        </div>
-        <LottleDivider />
-        <h3 className='text-2xl mt-4 mb-5'>课程介绍</h3>
-        <div className='mb-4'>
-          2023下半年科技类白名单比赛集训介绍。快速备赛“广州市中小学生科技创客电视大赛”“全国青少年科技创新大赛”。剑指科技类白名单赛事，广州市教育局赛事。7月学习编程知识与硬件内容。8月制作作品。
-        </div>
-        <LottleDivider />
+        {lottleDescription.map((desc, i) => (
+          <div key={i}>
+            <LottleDescription
+              title={desc.title}
+              description={desc.descriiption}
+            />
+            <LottleDivider />
+          </div>
+        ))}
         <h3 className='text-2xl mt-4 mb-5'>课程内容</h3>
         <div className='flex justify-center'>
           <ul className='list-inside list-disc text-left'>
@@ -75,96 +70,62 @@ export default function Home() {
         </div>
         <LottleDivider />
         <h3 className='text-2xl mt-4 mb-5'>课堂及作品展示</h3>
-        <div className='grid grid-cols-3 gap-4'>
-          <div>
-            <Image
-              src='/class-1.jpg'
-              alt='课堂展示'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
-          <div>
-            <Image
-              src='/class-2.jpg'
-              alt='课堂展示'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
-          <div>
-            <Image
-              src='/class-3.jpg'
-              alt='课堂展示'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
-          <div>
-            <Image
-              src='/portfolio-1.jpg'
-              alt='作品集'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
-          <div>
-            <Image
-              src='/portfolio-2.jpg'
-              alt='作品集'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
-          <div>
-            <Image
-              src='/portfolio-3.jpg'
-              alt='作品集'
-              width={900}
-              height={600}
-              priority
-            />
-          </div>
+        <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+          {imageUrls.map((url, i) => (
+            <div key={i}>
+              <Image
+                src={url}
+                alt='图片展示'
+                width={900}
+                height={600}
+                priority
+              />
+            </div>
+          ))}
         </div>
         <LottleDivider />
-        <h3 className='text-2xl mt-4 mb-5'>学员信息</h3>
+        <h3 className='text-2xl mt-4 mb-3'>学员信息登记</h3>
         <div className='flex justify-center'>
           <Form
-            name='basic'
-            style={{ maxWidth: 600 }}
+            name='registration'
             onFinish={onFinish}
             initialValues={{ remember: true }}
             autoComplete='off'
+            layout='vertical'
+            size='large'
+            className='w-full md:w-2/3'
           >
-            <Form.Item
-              label='姓名'
-              name='name'
-              rules={[{ required: true, message: '请输入您的姓名！' }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label='联系电话'
-              name='phone'
-              rules={[{ required: true, message: '请输入您的手机号！' }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label='微信号'
-              name='wechatId'
-              rules={[{ required: true, message: '请输入您的微信号！' }]}
-              className='mb-3'
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item>
-              <Button htmlType='submit'>提交</Button>
+            <div className='px-10 py-4 mb-5 bg-secondary shadow-lg hover:shadow-indigo-500/40'>
+              <Form.Item
+                label='姓名'
+                name='name'
+                rules={[{ required: true, message: '请输入您的姓名！' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label='联系电话'
+                name='phone'
+                rules={[{ required: true, message: '请输入您的手机号！' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label='微信号'
+                name='wechatId'
+                rules={[{ required: true, message: '请输入您的微信号！' }]}
+                className='mb-5'
+              >
+                <Input />
+              </Form.Item>
+            </div>
+            <Form.Item className='md:px-5'>
+              <Button
+                htmlType='submit'
+                className='w-full btn-secondary hover:drop-shadow-lg hover:shadow-indigo-500/40'
+              >
+                提交
+              </Button>
             </Form.Item>
           </Form>
         </div>

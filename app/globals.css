@@ -7,10 +7,33 @@ body {
   /* color: #8ea9ae; */
 }
 
-h1, h2 {
-  /* font-weight: 400 !important; */
+.text-primary {
+  color: #fde37d;
 }
 
 .bg-primary {
   background-color: #fde37d;
+}
+
+.bg-secondary {
+  background-color: #8ea9ae; 
+}
+
+.btn-primary {
+  background-color: #fde37d; 
+  border-color: #8ea9ae !important;
+}
+
+.btn-primary:hover {
+  color: #8ea9ae !important;
+  border-color: #8ea9ae !important;
+}
+
+.btn-secondary {
+  background-color: #8ea9ae !important; 
+}
+
+.btn-secondary:hover {
+  color: #fde37d !important;
+  border-color: #8ea9ae !important;
 }
