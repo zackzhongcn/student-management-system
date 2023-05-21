@@ -16,7 +16,6 @@ export default function Home() {
       const students = await axios.get(baseUrl, {
         headers: { 'Api-Key': process.env.NEXT_PUBLIC_API_ROUTE_KEY },
       });
-      console.log('students: ', students);
     } catch (error: any) {
       // console.log('errror: ', error);
       // toast.error('Failed to get students records.');
@@ -24,12 +23,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    toast.success('test test test!');
     getSutdents();
   }, [getSutdents]);
 
   const onFinish = async (values: any) => {
-    console.log(values);
     try {
       const baseUrl = '/api/students';
       const result = await axios.post(baseUrl, JSON.stringify(values), {
