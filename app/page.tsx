@@ -3,11 +3,17 @@
 import React, { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { Form, Input, Button } from 'antd';
-import { classInfo, imageUrls, lottleDescription } from '@/utils/constants';
+import {
+  classInfo_1,
+  classInfo_2,
+  imageUrls,
+  lottleDescription,
+} from '@/utils/constants';
 import LottleDivider from '@/components/LottleDivider';
 import LottleDescription from '@/components/LottleInfoSection';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import LottleImageCard from '@/components/LottleImageCard';
 
 export default function Home() {
   const getSutdents = useCallback(async () => {
@@ -43,8 +49,22 @@ export default function Home() {
   return (
     <main className='text-cetenter'>
       <div className='px-4'>
-        <h1 className='text-5xl pt-4'>乐涂科创</h1>
-        <h2 className='text-4xl'>2023年科技类白名单赛事集训课程</h2>
+        {/* <h1 className='text-4xl pt-4'>乐涂科创</h1> */}
+        <div className='flex justify-center mb-3'>
+          <Image
+            src='/vercel.svg'
+            alt='Vercel Logo'
+            className='text-center'
+            width={100}
+            height={24}
+            priority
+          />
+        </div>
+        <h2 className='text-3xl leading-relaxed'>
+          2023年科技类
+          <br />
+          白名单赛事集训课程
+        </h2>
         <LottleDivider />
         {lottleDescription.map((desc, i) => (
           <div key={i}>
@@ -57,26 +77,27 @@ export default function Home() {
         ))}
         <h3 className='text-2xl mt-4 mb-5'>课程内容</h3>
         <div className='flex justify-center'>
-          <ul className='list-inside list-disc text-left'>
-            {classInfo.map((info, i) => (
-              <li key={i}>
+          <ul className='list-inside list-disc text-left me-5'>
+            {classInfo_1.map((info, i) => (
+              <li key={i} className='mb-2'>
                 {info.index}:&nbsp;&nbsp;&nbsp;{info.content}
               </li>
             ))}
           </ul>
+          {/* <ul className='list-inside list-disc text-left'>
+            {classInfo_2.map((info, i) => (
+              <li key={i}>
+                {info.index}:&nbsp;&nbsp;&nbsp;{info.content}
+              </li>
+            ))}
+          </ul> */}
         </div>
         <LottleDivider />
         <h3 className='text-2xl mt-4 mb-5'>课堂及作品展示</h3>
-        <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {imageUrls.map((url, i) => (
             <div key={i}>
-              <Image
-                src={url}
-                alt='图片展示'
-                width={900}
-                height={600}
-                priority
-              />
+              <LottleImageCard url={url} />
             </div>
           ))}
         </div>
@@ -92,7 +113,7 @@ export default function Home() {
             size='large'
             className='w-full md:w-2/3'
           >
-            <div className='px-10 py-4 mb-5 bg-secondary shadow-lg hover:shadow-indigo-500/40'>
+            <div className='px-10 py-4 mb-5 bg-white shadow-lg hover:shadow-gray-500/40 rounded-lg'>
               <Form.Item
                 label='姓名'
                 name='name'
@@ -116,10 +137,10 @@ export default function Home() {
                 <Input />
               </Form.Item>
             </div>
-            <Form.Item className='md:px-5'>
+            <Form.Item className=''>
               <Button
                 htmlType='submit'
-                className='w-full btn-secondary hover:drop-shadow-lg hover:shadow-indigo-500/40'
+                className='w-full bg-white hover:drop-shadow-lg hover:shadow-gray-500/40'
               >
                 提交
               </Button>
@@ -128,8 +149,14 @@ export default function Home() {
         </div>
         <LottleDivider />
         <h3 className='text-2xl mt-4 mb-5'>缴费方式</h3>
-        <div className='flex justify-center'>
-          <img src='/payment-qr.jpg' alt='缴费二维码' className='w-72' />
+        <div className='flex justify-center pb-5'>
+          <Image
+            src='/payment-qr.jpg'
+            alt='缴费二维码'
+            width={900}
+            height={1300}
+            className='w-72'
+          />
         </div>
       </div>
     </main>

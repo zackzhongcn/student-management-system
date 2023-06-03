@@ -59,7 +59,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const apiKey = request.headers.get('API-Key');
-    if (apiKey !== process.env.API_ROUTE_KEY) {
+    if (apiKey !== process.env.NEXT_PUBLIC_API_ROUTE_KEY) {
       const error_response = {
         status: 'fail',
         message: 'You are not authorized to call this API.',

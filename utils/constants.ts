@@ -14,10 +14,10 @@ export const lottleDescription = [
 export const imageUrls = [
   '/class-1.jpg',
   '/class-2.jpg',
-  '/class-3.jpg',
+  // '/class-3.jpg',
   '/portfolio-1.jpg',
   '/portfolio-2.jpg',
-  '/portfolio-3.jpg',
+  // '/portfolio-3.jpg',
 ];
 
 export const classInfoColumns = [
@@ -33,7 +33,7 @@ export const classInfoColumns = [
   },
 ];
 
-export const classInfo = [
+export const classInfo_1 = [
   { key: 1, index: '第一课', content: '电子世界' },
   { key: 2, index: '第二课', content: '璀璨的宇宙' },
   { key: 3, index: '第三课', content: '以弱控强' },
@@ -42,6 +42,9 @@ export const classInfo = [
   { key: 6, index: '第六课', content: '计时器' },
   { key: 7, index: '第七课', content: '字的显示' },
   { key: 8, index: '第八课', content: '电子寄存' },
+];
+
+export const classInfo_2 = [
   { key: 9, index: '第九课', content: '遥控器' },
   { key: 10, index: '第十课', content: 'HELLO WORLD' },
   { key: 11, index: '第十一课', content: '教师温度计' },
